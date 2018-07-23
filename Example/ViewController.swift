@@ -14,7 +14,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        PullableSheet().add(to: self)
+        let content = UIViewController()
+        content.view.backgroundColor = .clear
+
+        let label = UILabel()
+        label.text = "Hello"
+        label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+        content.view.addSubview(label)
+        label.sizeToFit()
+        label.center.x = content.view.center.x
+        label.frame.origin.y = 30
+        label.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
+
+        PullableSheet(content: content).add(to: self)
     }
 }
 

@@ -18,6 +18,7 @@
 		245CAE3721061818001C97B1 /* PullableSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245CAE06210617A0001C97B1 /* PullableSheet.framework */; };
 		245CAE39210618A8001C97B1 /* PullableSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245CAE38210618A8001C97B1 /* PullableSheet.swift */; };
 		245CAE3D21063B89001C97B1 /* PullableSheet+SnapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245CAE3C21063B89001C97B1 /* PullableSheet+SnapPoint.swift */; };
+		245CAE3F21064585001C97B1 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245CAE3E21064585001C97B1 /* UIViewController+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		245CAE3221061809001C97B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		245CAE38210618A8001C97B1 /* PullableSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullableSheet.swift; sourceTree = "<group>"; };
 		245CAE3C21063B89001C97B1 /* PullableSheet+SnapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PullableSheet+SnapPoint.swift"; sourceTree = "<group>"; };
+		245CAE3E21064585001C97B1 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				245CAE0A210617A0001C97B1 /* Info.plist */,
 				245CAE38210618A8001C97B1 /* PullableSheet.swift */,
 				245CAE3C21063B89001C97B1 /* PullableSheet+SnapPoint.swift */,
+				245CAE3E21064585001C97B1 /* UIViewController+.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			files = (
 				245CAE39210618A8001C97B1 /* PullableSheet.swift in Sources */,
 				245CAE3D21063B89001C97B1 /* PullableSheet+SnapPoint.swift in Sources */,
+				245CAE3F21064585001C97B1 /* UIViewController+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

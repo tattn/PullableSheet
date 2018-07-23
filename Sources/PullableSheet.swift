@@ -10,8 +10,9 @@ import UIKit
 
 open class PullableSheet: UIViewController {
 
-    private var barView = UIView(frame: .init(x: 0, y: 5, width: 50, height: 5))
+    open var snapPoints: [SnapPoint] = [.min, .max]
 
+    private var barView = UIView(frame: .init(x: 0, y: 5, width: 50, height: 5))
     let defaultMinY: CGFloat = UIApplication.shared.statusBarFrame.height
     var defaultMaxY: CGFloat {
         return UIScreen.main.bounds.height - {
@@ -20,16 +21,17 @@ open class PullableSheet: UIViewController {
             } else {
                 return 0
             }
-        }()
+            }()
     }
+    private let contentViewController: UIViewController?
 
-    open var snapPoints: [SnapPoint] = [.min, .max]
-
-    public init() {
+    public init(content: UIViewController) {
+        contentViewController = content
         super.init(nibName: nil, bundle: nil)
     }
 
     required public init?(coder aDecoder: NSCoder) {
+        contentViewController = nil
         super.init(coder: aDecoder)
     }
 
@@ -57,10 +59,16 @@ open class PullableSheet: UIViewController {
         barView.center.x = view.center.x
         barView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
 
+        if let content = contentViewController {
+            addContainerView(content)
+            content.view.frame.origin.y = barView.frame.maxY + barView.frame.minY
+            content.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        }
+
         setupBluredView()
     }
 
-    private func setupBluredView(){
+    private func setupBluredView() {
         let blurEffect = UIBlurEffect(style: .light) // .dark
         let visualEffect = UIVisualEffectView(effect: blurEffect)
         let bluredView = UIVisualEffectView(effect: blurEffect)
@@ -73,12 +81,8 @@ open class PullableSheet: UIViewController {
     }
 
     open func add(to viewController: UIViewController, view: UIView? = nil) {
-        guard let targetView = view ?? viewController.view else { return }
-        viewController.addChildViewController(self)
-        targetView.addSubview(self.view)
-        didMove(toParentViewController: viewController)
-
-        targetView.frame.origin = CGPoint(x: 0, y: targetView.frame.maxY)
+        viewController.addContainerView(self, view: view)
+        self.view.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
     }
 
     open func scroll(toY y: CGFloat, duration: Double = 0.6) {
