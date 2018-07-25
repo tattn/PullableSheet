@@ -14,16 +14,24 @@ open class PullableSheet: UIViewController {
     open var snapPoints: [SnapPoint] = [.min, .max]
 
     private var barView = UIView(frame: .init(x: 0, y: 5, width: 50, height: 5))
-    let defaultMinY: CGFloat = UIApplication.shared.statusBarFrame.height
+    var defaultMinY: CGFloat {
+        if #available(iOS 11.0, *) {
+            return UIApplication.shared.keyWindow!.safeAreaInsets.top
+        } else {
+            return 0
+        }
+    }
     var defaultMaxY: CGFloat {
         return UIScreen.main.bounds.height - {
             if #available(iOS 11.0, *) {
-                return view.safeAreaInsets.bottom
+                return UIApplication.shared.keyWindow!.safeAreaInsets.bottom
             } else {
                 return 0
             }
             }()
     }
+
+    private var parentView: UIView?
     private let contentViewController: UIViewController?
     private weak var contentScrollView: UIScrollView?
     private var contentScrollViewPreviousOffset: CGFloat = 0
@@ -65,11 +73,31 @@ open class PullableSheet: UIViewController {
 
         if let content = contentViewController {
             addContainerView(content)
-            content.view.frame.origin.y = barView.frame.maxY + barView.frame.minY
-            content.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            content.view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                content.view.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: barView.frame.minY),
+                content.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+                content.view.rightAnchor.constraint(equalTo: view.rightAnchor)
+                ])
+            if #available(iOS 11.0, *) {
+                content.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            } else {
+                content.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            }
         }
 
         setupBluredView()
+    }
+
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard let view = parentView else { return }
+        self.view.frame.size.height = view.frame.height - defaultMinY
+    }
+
+    open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        close()
     }
 
     private func setupBluredView() {
@@ -85,6 +113,7 @@ open class PullableSheet: UIViewController {
     }
 
     open func add(to viewController: UIViewController, view: UIView? = nil) {
+        parentView = view ?? viewController.view
         viewController.addContainerView(self, view: view)
         self.view.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
     }
@@ -92,7 +121,6 @@ open class PullableSheet: UIViewController {
     open func scroll(toY y: CGFloat, duration: Double = 0.6) {
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
             self.view.frame.origin.y = y
-
         }, completion: nil)
     }
 
@@ -137,9 +165,7 @@ open class PullableSheet: UIViewController {
 }
 
 extension PullableSheet: UIGestureRecognizerDelegate {
-
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-
 }
