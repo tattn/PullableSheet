@@ -6,6 +6,12 @@
   <a href="https://github.com/Carthage/Carthage">
     <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible" />
   </a>
+  <a href="http://cocoapods.org/pods/PullableSheet">
+    <img src="https://img.shields.io/cocoapods/v/PullableSheet.svg" alt="CocoaPods" />
+  </a>
+  <a href="http://cocoapods.org/pods/PullableSheet">
+    <img src="https://img.shields.io/cocoapods/p/PullableSheet.svg" alt="Platform" />
+  </a>
   <a href="https://developer.apple.com/swift">
     <img src="https://img.shields.io/badge/Swift-4-F16D39.svg" alt="Swift Version" />
   </a>
@@ -26,6 +32,12 @@
 
 ```ruby
 github "tattn/PullableSheet"
+```
+
+## CocoaPods
+
+```ruby
+pod 'PullableSheet'
 ```
 
 # Usage
