@@ -30,7 +30,7 @@ github "tattn/PullableSheet"
 
 # Usage
 
-```
+```swift
 import PullableSheet
 
 // ....
