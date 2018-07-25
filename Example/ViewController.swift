@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let content = TableVC()//UIViewController()
+        let content = TableVC() // UIViewController()
         content.view.backgroundColor = .clear
 
         let label = UILabel()
@@ -26,7 +26,10 @@ class ViewController: UIViewController {
         label.frame.origin.y = 30
         label.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
 
-        PullableSheet(content: content).add(to: self)
+        let sheet = PullableSheet(content: content)
+        sheet.snapPoints = [.min, .custom(y: 300), .max]
+//        sheet.snapPoints = [.custom(y: 300), .custom(y: 700)]
+        sheet.add(to: self)
     }
 }
 

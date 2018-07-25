@@ -7,29 +7,22 @@
 //
 
 import UIKit
-import UIKit.UIGestureRecognizerSubclass
 
 open class PullableSheet: UIViewController {
 
-    open var snapPoints: [SnapPoint] = [.min, .max]
+    open var snapPoints: [SnapPoint] = [.min, .max] {
+        didSet { snapPoints.sort() }
+    }
+
+    private var pullableMinY: CGFloat {
+        return snapPoints.first?.y ?? SnapPoint.min.y
+    }
+
+    private var pullableMaxY: CGFloat {
+        return snapPoints.last?.y ?? SnapPoint.max.y
+    }
 
     private var barView = UIView(frame: .init(x: 0, y: 5, width: 50, height: 5))
-    var defaultMinY: CGFloat {
-        if #available(iOS 11.0, *) {
-            return UIApplication.shared.keyWindow!.safeAreaInsets.top
-        } else {
-            return 0
-        }
-    }
-    var defaultMaxY: CGFloat {
-        return UIScreen.main.bounds.height - {
-            if #available(iOS 11.0, *) {
-                return UIApplication.shared.keyWindow!.safeAreaInsets.bottom
-            } else {
-                return 0
-            }
-            }()
-    }
 
     private var parentView: UIView?
     private let contentViewController: UIViewController?
@@ -92,7 +85,7 @@ open class PullableSheet: UIViewController {
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         guard let view = parentView else { return }
-        self.view.frame.size.height = view.frame.height - defaultMinY
+        self.view.frame.size.height = view.frame.height - pullableMinY
     }
 
     open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -125,7 +118,7 @@ open class PullableSheet: UIViewController {
     }
 
     open func close() {
-        scroll(toY: defaultMaxY)
+        scroll(toY: pullableMaxY)
     }
 
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -133,7 +126,7 @@ open class PullableSheet: UIViewController {
 
         if scrollView.contentOffset.y < 0 {
             scrollView.contentOffset.y = 0
-        } else if view.frame.minY > defaultMinY {
+        } else if view.frame.minY > pullableMinY {
             scrollView.contentOffset.y = contentScrollViewPreviousOffset
         }
         contentScrollViewPreviousOffset = scrollView.contentOffset.y
@@ -152,7 +145,7 @@ open class PullableSheet: UIViewController {
         let velocity = recognizer.velocity(in: view)
         let y = view.frame.minY
 
-        view.frame.origin.y = min(max(y + translation.y, defaultMinY), defaultMaxY)
+        view.frame.origin.y = min(max(y + translation.y, pullableMinY), pullableMaxY)
 
         if recognizer.state == .ended, !snapPoints.isEmpty {
             let targetY = nearestPoint(of: y)
@@ -165,7 +158,8 @@ open class PullableSheet: UIViewController {
 }
 
 extension PullableSheet: UIGestureRecognizerDelegate {
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                                  shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
