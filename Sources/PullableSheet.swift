@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIKit.UIGestureRecognizerSubclass
 
 open class PullableSheet: UIViewController {
 
@@ -24,6 +25,8 @@ open class PullableSheet: UIViewController {
             }()
     }
     private let contentViewController: UIViewController?
+    private weak var contentScrollView: UIScrollView?
+    private var contentScrollViewPreviousOffset: CGFloat = 0
 
     public init(content: UIViewController) {
         contentViewController = content
@@ -51,6 +54,7 @@ open class PullableSheet: UIViewController {
         view.clipsToBounds = true
 
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
+        gesture.delegate = self
         view.addGestureRecognizer(gesture)
 
         barView.backgroundColor = .black
@@ -96,15 +100,31 @@ open class PullableSheet: UIViewController {
         scroll(toY: defaultMaxY)
     }
 
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.contentScrollView = scrollView
+
+        if scrollView.contentOffset.y < 0 {
+            scrollView.contentOffset.y = 0
+        } else if view.frame.minY > defaultMinY {
+            scrollView.contentOffset.y = contentScrollViewPreviousOffset
+        }
+        contentScrollViewPreviousOffset = scrollView.contentOffset.y
+    }
+
     @objc private func panGesture(_ recognizer: UIPanGestureRecognizer) {
+        defer { recognizer.setTranslation(.zero, in: view) }
+        if let scrollView = contentScrollView {
+            let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+            if velocity > 0 && scrollView.contentOffset.y > 0 {
+                return
+            }
+        }
+
         let translation = recognizer.translation(in: view)
         let velocity = recognizer.velocity(in: view)
         let y = view.frame.minY
 
-        if y + translation.y >= defaultMinY, y + translation.y <= defaultMaxY {
-            view.frame.origin.y = min(max(y + translation.y, defaultMinY), defaultMaxY)
-            recognizer.setTranslation(.zero, in: view)
-        }
+        view.frame.origin.y = min(max(y + translation.y, defaultMinY), defaultMaxY)
 
         if recognizer.state == .ended, !snapPoints.isEmpty {
             let targetY = nearestPoint(of: y)
@@ -114,4 +134,12 @@ open class PullableSheet: UIViewController {
             scroll(toY: targetY, duration: Double(duration))
         }
     }
+}
+
+extension PullableSheet: UIGestureRecognizerDelegate {
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
 }
