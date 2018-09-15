@@ -19,6 +19,7 @@
 		245CAE39210618A8001C97B1 /* PullableSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245CAE38210618A8001C97B1 /* PullableSheet.swift */; };
 		245CAE3D21063B89001C97B1 /* PullableSheet+SnapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245CAE3C21063B89001C97B1 /* PullableSheet+SnapPoint.swift */; };
 		245CAE3F21064585001C97B1 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245CAE3E21064585001C97B1 /* UIViewController+.swift */; };
+		24E6516B214CD6A900502E14 /* PullableSheet+TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E6516A214CD6A900502E14 /* PullableSheet+TopBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		245CAE38210618A8001C97B1 /* PullableSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullableSheet.swift; sourceTree = "<group>"; };
 		245CAE3C21063B89001C97B1 /* PullableSheet+SnapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PullableSheet+SnapPoint.swift"; sourceTree = "<group>"; };
 		245CAE3E21064585001C97B1 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		24E6516A214CD6A900502E14 /* PullableSheet+TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PullableSheet+TopBar.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				245CAE0A210617A0001C97B1 /* Info.plist */,
 				245CAE38210618A8001C97B1 /* PullableSheet.swift */,
 				245CAE3C21063B89001C97B1 /* PullableSheet+SnapPoint.swift */,
+				24E6516A214CD6A900502E14 /* PullableSheet+TopBar.swift */,
 				245CAE3E21064585001C97B1 /* UIViewController+.swift */,
 			);
 			path = Sources;
@@ -282,6 +285,7 @@
 			files = (
 				245CAE39210618A8001C97B1 /* PullableSheet.swift in Sources */,
 				245CAE3D21063B89001C97B1 /* PullableSheet+SnapPoint.swift in Sources */,
+				24E6516B214CD6A900502E14 /* PullableSheet+TopBar.swift in Sources */,
 				245CAE3F21064585001C97B1 /* UIViewController+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
