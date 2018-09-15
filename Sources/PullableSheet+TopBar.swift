@@ -22,7 +22,6 @@ extension PullableSheet.TopBarStyle {
             let view = UIView(frame: .init(x: 0, y: 5, width: 50, height: 5))
             view.backgroundColor = .black
             view.layer.cornerRadius = 3
-            view.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
             return view
         case .custom(let view):
             return view
