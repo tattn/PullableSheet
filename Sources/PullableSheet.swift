@@ -22,20 +22,22 @@ open class PullableSheet: UIViewController {
         return snapPoints.last?.y ?? SnapPoint.max.y
     }
 
-    private var barView = UIView(frame: .init(x: 0, y: 5, width: 50, height: 5))
+    private let topBarStyle: TopBarStyle
 
     private var parentView: UIView?
     private let contentViewController: UIViewController?
     private weak var contentScrollView: UIScrollView?
     private var contentScrollViewPreviousOffset: CGFloat = 0
 
-    public init(content: UIViewController) {
-        contentViewController = content
+    public init(content: UIViewController, topBarStyle: TopBarStyle = .default) {
+        self.contentViewController = content
+        self.topBarStyle = topBarStyle
         super.init(nibName: nil, bundle: nil)
     }
 
     required public init?(coder aDecoder: NSCoder) {
         contentViewController = nil
+        topBarStyle = .default
         super.init(coder: aDecoder)
     }
 
@@ -58,17 +60,16 @@ open class PullableSheet: UIViewController {
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
 
-        barView.backgroundColor = .black
-        barView.layer.cornerRadius = 3
-        view.addSubview(barView)
-        barView.center.x = view.center.x
-        barView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
+        let topBar = topBarStyle.view
+        view.addSubview(topBar)
+        topBar.center.x = view.center.x
+        topBar.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
 
         if let content = contentViewController {
             addContainerView(content)
             content.view.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                content.view.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: barView.frame.minY),
+                content.view.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: 5),
                 content.view.leftAnchor.constraint(equalTo: view.leftAnchor),
                 content.view.rightAnchor.constraint(equalTo: view.rightAnchor)
                 ])

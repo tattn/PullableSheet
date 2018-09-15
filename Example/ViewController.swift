@@ -17,16 +17,18 @@ class ViewController: UIViewController {
         let content = TableVC() // UIViewController()
         content.view.backgroundColor = .clear
 
-        let label = UILabel()
-        label.text = "Hello"
-        label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
-        content.view.addSubview(label)
-        label.sizeToFit()
-        label.center.x = content.view.center.x
-        label.frame.origin.y = 30
-        label.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
+//        let label = UILabel()
+//        label.text = "Hello"
+//        label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+//        content.view.addSubview(label)
+//        label.sizeToFit()
+//        label.center.x = content.view.center.x
+//        label.frame.origin.y = 30
+//        label.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
 
-        let sheet = PullableSheet(content: content)
+        let view = UIView(frame: .init(x: 0, y: 5, width: 300, height: 30))
+        view.backgroundColor = .green
+        let sheet = PullableSheet(content: content, topBarStyle: .custom(view))
         sheet.snapPoints = [.min, .custom(y: 300), .max]
 //        sheet.snapPoints = [.custom(y: 300), .custom(y: 700)]
         sheet.add(to: self)
