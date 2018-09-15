@@ -47,6 +47,14 @@ override func viewDidLoad() {
 }
 ```
 
+## Customize top bar
+
+```swift
+let topBar = UIView(frame: .init(x: 0, y: 5, width: 300, height: 30))
+topBar.backgroundColor = .green
+let sheet = PullableSheet(content: content, topBarStyle: .custom(topBar))
+```
+
 
 # Contributing
 
