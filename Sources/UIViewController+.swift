@@ -11,8 +11,8 @@ import UIKit
 extension UIViewController {
     func addContainerView(_ viewController: UIViewController, view: UIView? = nil) {
         guard let targetView = view ?? viewController.view else { return }
-        addChildViewController(viewController)
+        addChild(viewController)
         self.view.addSubview(targetView)
-        viewController.didMove(toParentViewController: self)
+        viewController.didMove(toParent: self)
     }
 }
