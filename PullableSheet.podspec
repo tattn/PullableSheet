@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'PullableSheet'
-  s.version          = '0.0.1'
+  s.version          = '0.0.3'
   s.summary          = 'Pullable sheet like a default map app or bottom sheets (Android).'
 
   s.description      = <<-DESC
@@ -16,7 +16,7 @@ https://github.com/tattn/PullableSheet
 
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'Sources/**/*'
+  s.source_files = 'Sources/**/*.{swift,h}'
   
   s.public_header_files = 'Sources/**/*.h'
   s.frameworks = 'UIKit'
