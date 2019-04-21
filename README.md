@@ -13,7 +13,7 @@
     <img src="https://img.shields.io/cocoapods/p/PullableSheet.svg" alt="Platform" />
   </a>
   <a href="https://developer.apple.com/swift">
-    <img src="https://img.shields.io/badge/Swift-4-F16D39.svg" alt="Swift Version" />
+    <img src="https://img.shields.io/badge/Swift-5-F16D39.svg" alt="Swift Version" />
   </a>
   <a href="./LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-green.svg?style=flat-square" alt="license:MIT" />
