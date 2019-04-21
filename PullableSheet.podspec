@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'PullableSheet'
-  s.version          = '0.0.3'
+  s.version          = '0.1.0'
   s.summary          = 'Pullable sheet like a default map app or bottom sheets (Android).'
 
   s.description      = <<-DESC
