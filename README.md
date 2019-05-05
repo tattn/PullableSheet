@@ -1,6 +1,12 @@
 <h1 align="center">PullableSheet</h1>
 
+
+
 <h5 align="center">Pullable sheet like a default map app or bottom sheets (Android).</h5>
+
+<h1 align=center>
+<img src="docs/assets/logo/horizontal.png" width=60%>
+</h1>
 
 <div align="center">
   <a href="https://github.com/Carthage/Carthage">
@@ -19,6 +25,8 @@
     <img src="https://img.shields.io/badge/license-MIT-green.svg?style=flat-square" alt="license:MIT" />
   </a>
 </div>
+
+
 
 <br />
 
