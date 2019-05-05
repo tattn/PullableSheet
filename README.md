@@ -1,12 +1,9 @@
-<h1 align="center">PullableSheet</h1>
-
-
-
-<h5 align="center">Pullable sheet like a default map app or bottom sheets (Android).</h5>
-
 <h1 align=center>
 <img src="docs/assets/logo/horizontal.png" width=60%>
 </h1>
+
+
+<h5 align="center">PullableSheet is like a sheet in a default map app or Android's bottom sheets.</h5>
 
 <div align="center">
   <a href="https://github.com/Carthage/Carthage">
